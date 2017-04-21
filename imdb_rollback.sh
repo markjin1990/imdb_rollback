@@ -2,7 +2,10 @@
 # This is a script that downloads the latest imdb data from the remote repository and roll back the data to an older version at a specific date
 #
 # How to use it:
-# ./download [-d YYMMDD]
+# ./imdb_rollback [-d YYMMDD]
+# 
+# Author: Zhongjun Jin
+# Email: markjin1990(at)gmail.com
 #
 
 imdbAttr='ftp://ftp.fu-berlin.de/pub/misc/movies/database/'
@@ -11,15 +14,13 @@ diffDir='./diffs'
 
 echo "====================="
 echo "Rollback IMDB data to a previous date"
-echo ""
-echo "Author: Zhongjun Jin (markjin1990@gmail.com)"
 echo "====================="
 
 echo "[STEP 0] Cleaning local data"
-# rm *.gz
+rm *.gz
 
 echo "[STEP 1] Downloading IMDB data"
-# wget -r --accept="*.gz" --no-directories --no-host-directories --level 1 ftp://ftp.fu-berlin.de/pub/misc/movies/database/   | sed 's/^/       /'
+wget -r --accept="*.gz" --no-directories --no-host-directories --level 1 ftp://ftp.fu-berlin.de/pub/misc/movies/database/   | sed 's/^/       /'
 
 
 if [ "$1" = "-d" ] && [ ${#2} = 6 ]; then
