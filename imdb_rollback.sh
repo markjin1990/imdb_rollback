@@ -17,10 +17,10 @@ echo "Rollback IMDB data to a previous date"
 echo "====================="
 
 echo "[STEP 0] Cleaning local data"
-# rm *.gz
+rm *.gz
 
 echo "[STEP 1] Downloading IMDB data"
-# wget -r --accept="*.gz" --no-directories --no-host-directories --level 1 ftp://ftp.fu-berlin.de/pub/misc/movies/database/   | sed 's/^/       /'
+wget -r --accept="*.gz" --no-directories --no-host-directories --level 1 ftp://ftp.fu-berlin.de/pub/misc/movies/database/   | sed 's/^/       /'
 
 
 if [ "$1" = "-d" ] && [ ${#2} = 6 ]; then
