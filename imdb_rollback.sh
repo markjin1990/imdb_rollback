@@ -90,9 +90,13 @@ if [ "$1" = "-d" ] && [ ${#2} = 6 ]; then
                     
                     curFile=$(basename "$diffFile")
 
+                    # Rollback the curFile using diffFile
                     patch -s --backup-if-mismatch -R $curFile $diffFile  | sed 's/^/       /'
 
                     sleep 1
+
+                    # Delete this diffFile
+                    rm -f $diffFile
 
                     # Check if the rej file exists
                     if [ -f "$curFile.rej" ]; 
@@ -170,6 +174,9 @@ if [ "$1" = "-d" ] && [ ${#2} = 6 ]; then
 
                     sleep 1
 
+                    # Delete this diffFile
+                    rm -f $diffFile
+
                     # Check if the rej file exists
                     if [ -f "$curFile.rej" ]; 
                     then 
@@ -217,6 +224,8 @@ if [ "$1" = "-d" ] && [ ${#2} = 6 ]; then
 
                     patch -s --backup-if-mismatch -R $curFile $diffFile  | sed 's/^/       /'
                     sleep 1
+                    # Delete this diffFile
+                    rm -f $diffFile
 
                     # Check if the rej file exists
                     if [ -f "$curFile.rej" ]; 
