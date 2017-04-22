@@ -112,7 +112,7 @@ if [ "$1" = "-d" ] && [ ${#2} = 6 ]; then
 
                     else
                         # Remove backup file if not needed
-                        echo "    ROLLBACK SUCCESS"
+                        echo "       $curFile ROLLBACK SUCCESS"
                         rm -f "$curFile.orig"
 
                     fi
@@ -188,7 +188,7 @@ if [ "$1" = "-d" ] && [ ${#2} = 6 ]; then
 
                     else
                         # Remove backup file if not needed
-                        echo "    ROLLBACK SUCCESS"
+                        echo "       $curFile ROLLBACK SUCCESS"
                         rm -f "$curFile.orig"
 
                     fi
@@ -237,7 +237,7 @@ if [ "$1" = "-d" ] && [ ${#2} = 6 ]; then
 
                     else
                         # Remove backup file if not needed
-                        echo "    ROLLBACK SUCCESS"
+                        echo "       $curFile ROLLBACK SUCCESS"
                         rm -f "$curFile.orig"
 
                     fi
