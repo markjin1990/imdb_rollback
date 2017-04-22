@@ -101,6 +101,13 @@ if [ "$1" = "-d" ] && [ ${#2} = 6 ]; then
                         echo "    EXIT"
                         # Rollback
                         mv "$curFile.orig" $curFile
+
+                        tarFiles=($(ls *.list))
+                        for tarFile in "${tarFiles[@]}"
+                        do
+                            echo "      => compress $tarFile"
+                            gzip -f "$tarFile" | sed 's/^/       /'
+                        done
                         exit 1
 
                     else
@@ -169,6 +176,13 @@ if [ "$1" = "-d" ] && [ ${#2} = 6 ]; then
                         echo "    EXIT"
                         # Rollback
                         mv "$curFile.orig" $curFile
+
+                        tarFiles=($(ls *.list))
+                        for tarFile in "${tarFiles[@]}"
+                        do
+                            echo "      => compress $tarFile"
+                            gzip -f "$tarFile" | sed 's/^/       /'
+                        done
                         exit 1
 
                     else
@@ -209,6 +223,14 @@ if [ "$1" = "-d" ] && [ ${#2} = 6 ]; then
                         echo "    EXIT"
                         # Rollback
                         mv "$curFile.orig" $curFile
+
+                        tarFiles=($(ls *.list))
+                        for tarFile in "${tarFiles[@]}"
+                        do
+                            echo "      => compress $tarFile"
+                            gzip -f "$tarFile" | sed 's/^/       /'
+                        done
+
                         exit 1
 
                     else
