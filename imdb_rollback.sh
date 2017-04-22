@@ -17,10 +17,10 @@ echo "Rollback IMDB data to a previous date"
 echo "====================="
 
 echo "[STEP 0] Cleaning local data"
-rm *.gz
+# rm *.gz
 
 echo "[STEP 1] Downloading IMDB data"
-wget -r --accept="*.gz" --no-directories --no-host-directories --level 1 ftp://ftp.fu-berlin.de/pub/misc/movies/database/   | sed 's/^/       /'
+# wget -r --accept="*.gz" --no-directories --no-host-directories --level 1 ftp://ftp.fu-berlin.de/pub/misc/movies/database/   | sed 's/^/       /'
 
 
 if [ "$1" = "-d" ] && [ ${#2} = 6 ]; then
@@ -90,7 +90,24 @@ if [ "$1" = "-d" ] && [ ${#2} = 6 ]; then
                     
                     curFile=$(basename "$diffFile")
 
-                    patch -R $curFile $diffFile  | sed 's/^/       /'
+                    patch -s --backup-if-mismatch -R $curFile $diffFile  | sed 's/^/       /'
+
+                    sleep 1
+
+                    # Check if the rej file exists
+                    if [ -f "$curFile.rej" ]; 
+                    then 
+                        echo "    ERROR: MISMATCH EXISTS FOR $curFile IN ${diffFileName[idx]}"; 
+                        echo "    EXIT"
+                        # Rollback
+                        mv "$curFile.orig" $curFile
+                        exit 1
+
+                    else
+                        # Remove backup file if not needed
+                        rm -f "$curFile.orig"
+
+                    fi
 
                 done
                 echo ""
@@ -141,7 +158,24 @@ if [ "$1" = "-d" ] && [ ${#2} = 6 ]; then
                     curFile=$(basename "$diffFile")
 
 
-                    patch -R $curFile $diffFile | sed 's/^/       /'
+                    patch -s --backup-if-mismatch -R $curFile $diffFile  | sed 's/^/       /'
+
+                    sleep 1
+
+                    # Check if the rej file exists
+                    if [ -f "$curFile.rej" ]; 
+                    then 
+                        echo "    ERROR: MISMATCH EXISTS FOR $curFile IN ${diffFileName[idx]}"; 
+                        echo "    EXIT"
+                        # Rollback
+                        mv "$curFile.orig" $curFile
+                        exit 1
+
+                    else
+                        # Remove backup file if not needed
+                        rm -f "$curFile.orig"
+
+                    fi
 
                 done
 
@@ -165,7 +199,23 @@ if [ "$1" = "-d" ] && [ ${#2} = 6 ]; then
                 do
                     curFile=$(basename "$diffFile")
 
-                    patch -R $curFile $diffFile | sed 's/^/       /'
+                    patch -s --backup-if-mismatch -R $curFile $diffFile  | sed 's/^/       /'
+                    sleep 1
+
+                    # Check if the rej file exists
+                    if [ -f "$curFile.rej" ]; 
+                    then 
+                        echo "    ERROR: MISMATCH EXISTS FOR $curFile IN ${diffFileName[idx]}"; 
+                        echo "    EXIT"
+                        # Rollback
+                        mv "$curFile.orig" $curFile
+                        exit 1
+
+                    else
+                        # Remove backup file if not needed
+                        rm -f "$curFile.orig"
+
+                    fi
 
                 done
                 echo ""
